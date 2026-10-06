@@ -38,6 +38,7 @@ def calculator_repl():
                     print("\nAvailable commands:")
                     print("  add, subtract, multiply, divide, power, root - Perform calculations")
                     print("  history - Show calculation history")
+                    print("  last - Show the last calculation performed")
                     print("  clear - Clear calculation history")
                     print("  undo - Undo the last calculation")
                     print("  redo - Redo the last undone calculation")
@@ -65,6 +66,15 @@ def calculator_repl():
                         print("\nCalculation History:")
                         for i, entry in enumerate(history, 1):
                             print(f"{i}. {entry}")
+                    continue
+
+                if command == 'last':
+                    # Show the last calculation performed
+                    last_calc = calc.last_calculation()
+                    if last_calc:
+                        print(f"Last Calculation: {last_calc}")
+                    else:
+                        print("No calculations have been performed yet.")
                     continue
 
                 if command == 'clear':

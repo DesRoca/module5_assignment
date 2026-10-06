@@ -357,6 +357,17 @@ class Calculator:
         self.redo_stack.clear()
         logging.info("History cleared")
 
+    def last_calculation(self) -> Optional[Calculation]:
+        """
+        Get the last calculation performed.
+
+        Returns:
+            Optional[Calculation]: The most recent Calculation instance, or None if history is empty.
+        """
+        if self.history:
+            return self.history[-1]
+        return None
+
     def undo(self) -> bool:
         """
         Undo the last operation.
