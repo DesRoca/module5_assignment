@@ -30,6 +30,7 @@ def test_division_by_zero():
     with pytest.raises(OperationError, match="Division by zero is not allowed"):
         Calculation(operation="Division", operand1=Decimal("8"), operand2=Decimal("0"))
 
+
 def test_power():
     calc = Calculation(operation="Power", operand1=Decimal("2"), operand2=Decimal("3"))
     assert calc.result == Decimal("8")
@@ -41,6 +42,7 @@ def test_negative_power():
 
 
 def test_decimal_operation_error_is_wrapped():
+    # Test that a Decimal operation error is properly wrapped in an OperationError
     with pytest.raises(OperationError, match="Calculation failed"):
         Calculation(
             operation="Addition",
@@ -117,23 +119,26 @@ def test_equality():
     assert calc1 != calc3
 
 
+def test_equality_with_non_calculation():
+    # Test that equality comparison with a non-Calculation object returns NotImplemented
+    calc = Calculation(operation="Addition", operand1=Decimal("2"), operand2=Decimal("3"))
+    assert calc.__eq__(object()) is NotImplemented
+
+
 def test_string_representation():
+    # Test the string representation of the Calculation object
     calc = Calculation(operation="Addition", operand1=Decimal("2"), operand2=Decimal("3"))
     assert str(calc) == "Addition(2, 3) = 5"
 
 
 def test_detailed_representation():
+    # Test the detailed representation of the Calculation object
     calc = Calculation(operation="Addition", operand1=Decimal("2"), operand2=Decimal("3"))
     assert repr(calc) == (
         "Calculation(operation='Addition', "
         "operand1=2, operand2=3, result=5, "
         f"timestamp='{calc.timestamp.isoformat()}')"
     )
-
-
-def test_equality_with_non_calculation_returns_not_implemented():
-    calc = Calculation(operation="Addition", operand1=Decimal("2"), operand2=Decimal("3"))
-    assert calc.__eq__(object()) is NotImplemented
 
 
 # New Test to Cover Logging Warning
